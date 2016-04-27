@@ -1,0 +1,14 @@
+<config>
+	<tailer>
+		<input type="FILE">
+			<host>yourHost</host>
+			<port>yourPort</port>
+			<username>username</username>
+			<password>password</password>
+			<filePath>/path/to/file.log</filePath>
+		</input>
+		<output type="LOG_APPENDER">
+			<filePath>/tmp/remote-tailer/%d{yyyy-MM-dd}\file.%d{yyyy-MM-dd_HH}.log</filePath>
+		</output>
+	</tailer>
+</config>
