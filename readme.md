@@ -14,8 +14,18 @@ This project allow you to tail a fileset remotely.<br/>
 	<li>Choose a path where you want to put your configuration, and create it on your local machine (eg. /var/remote-tailer/my-cfg)</li>
 	<li>Copy to your preferred path all "src/main/examples/" content (config.xml)</li>
 	<li>
-		Open "config.xml" (eg. /var/remote-tailer/my-cfg/config.xml) and apply your configuration, as the example below:
-		
+		Open "config.xml" (eg. /var/remote-tailer/my-cfg/config.xml) and apply your configuration, as the example below:		
+		<ul>
+			<li>&lt;input&gt; is **required** node</li>
+			<li>&lt;host&gt; is a **required** node where you put your remote host for ssh remote connection</li>
+			<li>&lt;port&gt; is an **optional** node where you put your ssh remote port. The default value is **22**</li>
+			<li>&lt;username&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;password&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;output&gt; is a **required** node where you put your remote file. Please take a look below for more details</li>
+		</ul>
+	</li>
+</ol>
+
 	<config>
 		<tailer>
 			<input type="FILE">
@@ -33,17 +43,6 @@ This project allow you to tail a fileset remotely.<br/>
 			</output>
 		</tailer>	
 	</config>
-		
-		<ul>
-			<li>&lt;input&gt; is **required** node</li>
-			<li>&lt;host&gt; is a **required** node where you put your remote host for ssh remote connection</li>
-			<li>&lt;port&gt; is an **optional** node where you put your ssh remote port. The default value is **22**</li>
-			<li>&lt;username&gt; is a **required** node where you put your credentials</li>
-			<li>&lt;password&gt; is a **required** node where you put your credentials</li>
-			<li>&lt;output&gt; is a **required** node where you put your remote file. Please take a look below for more details</li>
-		</ul>
-	</li>
-</ol>
 
 ### output
 **Restriction:** At this moment just a single output could be configured!
