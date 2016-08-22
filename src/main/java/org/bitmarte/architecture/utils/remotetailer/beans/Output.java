@@ -14,8 +14,8 @@ public class Output {
 	@XStreamAsAttribute
 	private String type;
 
-	@XStreamAlias("filePath")
-	private String filePath;
+	@XStreamAlias("fileNamePattern")
+	private String fileNamePattern;
 
 	public String getType() {
 		return type;
@@ -25,12 +25,12 @@ public class Output {
 		this.type = type;
 	}
 
-	public String getFilePath() {
-		return filePath;
+	public String getFileNamePattern() {
+		return fileNamePattern;
 	}
 
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
+	public void setFileNamePattern(String fileNamePattern) {
+		this.fileNamePattern = fileNamePattern;
 	}
 
 }

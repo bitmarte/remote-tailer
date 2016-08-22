@@ -8,7 +8,7 @@
 			<filePath>/path/to/file.log</filePath>
 		</input>
 		<output type="LOG_APPENDER">
-			<filePath>/tmp/remote-tailer/%d{yyyy-MM-dd}\file.%d{yyyy-MM-dd_HH}.log</filePath>
+			<fileNamePattern>/tmp/remote-tailer/%d{yyyy-MM-dd}/file.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
 		</output>
 	</tailer>
 </config>

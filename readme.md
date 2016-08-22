@@ -27,21 +27,21 @@ This project allow you to tail a fileset remotely.<br/>
 			&lt;filePath&gt;/path/to/file.log&lt;/filePath&gt;
 		&lt;/input&gt;
 		&lt;output type="LOG_APPENDER"&gt;
-			&lt;filePath&gt;/tmp/remote-tailer/%d{yyyy-MM-dd}\file.%d{yyyy-MM-dd_HH}.log&lt;/filePath&gt;
+			&lt;fileNamePattern&gt;/tmp/remote-tailer/%d{yyyy-MM-dd}/file.%d{yyyy-MM-dd_HH}.log&lt;/fileNamePattern&gt;
 		&lt;/output&gt;
 	&lt;/tailer&gt;
 &lt;/config&gt;
 			</code>
 		</pre>
 		<ul>
-			<li>&lt;input&gt; is **require** node</li>
-			<li>&lt;host&gt; is a **require** node where you put your remote host for ssh remote connection</li>
+			<li>&lt;input&gt; is **required** node</li>
+			<li>&lt;host&gt; is a **required** node where you put your remote host for ssh remote connection</li>
 			<li>&lt;port&gt; is an **optional** node where you put your ssh remote port. The default value is **22**</li>
-			<li>&lt;username&gt; is a **require** node where you put your credentials</li>
-			<li>&lt;password&gt; is a **require** node where you put your credentials</li>
-			<li>&lt;filePath&gt; is a **require** node where you put your remote filePath</li>
-			<li>&lt;output&gt; is a **require** node</li>
-			<li>&lt;filePath&gt; is a **require** node where you put your **FileNamePattern**, based on TimeBasedRollingPolicy (http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy)</li>
+			<li>&lt;username&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;password&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;filePath&gt; is a **required** node where you put your remote filePath</li>
+			<li>&lt;output&gt; is a **required** node</li>
+			<li>&lt;fileNamePattern&gt; is a **required** node where you put your **FileNamePattern**, based on TimeBasedRollingPolicy (http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy)</li>
 		</ul>
 	</li>
 </ol>

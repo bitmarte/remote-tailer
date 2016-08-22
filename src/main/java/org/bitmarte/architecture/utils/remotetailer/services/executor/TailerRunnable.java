@@ -36,7 +36,8 @@ public class TailerRunnable implements Runnable {
 	public void run() {
 		try {
 			LOG.info("[" + Thread.currentThread().getName() + "] listening on " + this.tailer.getInput().getHost() + "@"
-					+ this.tailer.getInput().getFilePath() + " and write to " + this.tailer.getOutput().getFilePath());
+					+ this.tailer.getInput().getFilePath() + " and write to "
+					+ this.tailer.getOutput().getFileNamePattern());
 
 			Logger log = this.createLogger();
 
@@ -103,7 +104,7 @@ public class TailerRunnable implements Runnable {
 		rollingFileAppender.setPrudent(true);
 
 		TimeBasedRollingPolicy<?> timeBasedRollingPolicy = new TimeBasedRollingPolicy<Object>();
-		timeBasedRollingPolicy.setFileNamePattern(tailer.getOutput().getFilePath());
+		timeBasedRollingPolicy.setFileNamePattern(this.tailer.getOutput().getFileNamePattern());
 		timeBasedRollingPolicy.setMaxHistory(12);
 		timeBasedRollingPolicy.setParent(rollingFileAppender);
 		timeBasedRollingPolicy.setContext(lc);
