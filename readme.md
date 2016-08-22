@@ -15,36 +15,53 @@ This project allow you to tail a fileset remotely.<br/>
 	<li>Copy to your preferred path all "src/main/examples/" content (config.xml)</li>
 	<li>
 		Open "config.xml" (eg. /var/remote-tailer/my-cfg/config.xml) and apply your configuration, as the example below:
-		<pre>
-			<code>
-&lt;config&gt;
-	&lt;tailer&gt;
-		&lt;input type="FILE"&gt;
-			&lt;host&gt;yourHost&lt;/host&gt;
-			&lt;port&gt;yourPort&lt;/port&gt;
-			&lt;username&gt;username&lt;/username&gt;
-			&lt;password&gt;password&lt;/password&gt;
-			&lt;filePath&gt;/path/to/file.log&lt;/filePath&gt;
-		&lt;/input&gt;
-		&lt;output type="LOG_APPENDER"&gt;
-			&lt;filePath&gt;/tmp/remote-tailer/%d{yyyy-MM-dd}\file.%d{yyyy-MM-dd_HH}.log&lt;/filePath&gt;
-		&lt;/output&gt;
-	&lt;/tailer&gt;
-&lt;/config&gt;
-			</code>
-		</pre>
+		
+	<config>
+		<tailer>
+			<input type="FILE">
+				<host>syslxlog1c</host>
+				<port>22</port>
+				<username>your_user</username>
+				<password>your_pwd</password>
+				<filePath>/your/path/file.log</filePath>
+			</input>
+			<output>
+				<rollingFileAppender>
+					<fileRootPath>/tmp/your/path</fileRootPath>
+					<fileNamePattern>%d{yyyy-MM-dd}/file.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+				</rollingFileAppender>
+			</output>
+		</tailer>	
+	</config>
+		
 		<ul>
-			<li>&lt;input&gt; is **require** node</li>
-			<li>&lt;host&gt; is a **require** node where you put your remote host for ssh remote connection</li>
+			<li>&lt;input&gt; is **required** node</li>
+			<li>&lt;host&gt; is a **required** node where you put your remote host for ssh remote connection</li>
 			<li>&lt;port&gt; is an **optional** node where you put your ssh remote port. The default value is **22**</li>
-			<li>&lt;username&gt; is a **require** node where you put your credentials</li>
-			<li>&lt;password&gt; is a **require** node where you put your credentials</li>
-			<li>&lt;filePath&gt; is a **require** node where you put your remote filePath</li>
-			<li>&lt;output&gt; is a **require** node</li>
-			<li>&lt;filePath&gt; is a **require** node where you put your **FileNamePattern**, based on TimeBasedRollingPolicy (http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy)</li>
+			<li>&lt;username&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;password&gt; is a **required** node where you put your credentials</li>
+			<li>&lt;output&gt; is a **required** node where you put your remote file. Please take a look below for more details</li>
 		</ul>
 	</li>
 </ol>
+
+### output
+**Restriction:** At this moment just a single output could be configured!
+
+#### rollingFileAppender
+
+| Param			        		| Type					| Description																							| Default		|
+| ----------------------------- | ----------------------|-------------------------------------------------------------------------------------------------------|---------------|
+| deleteOnStart					| attribute (boolean)	| Delete the root path on start																			| false			|
+| layoutPattern					| attribute	(String)	| Using firefox browser instance																		| %msg			|
+| fileRootPath					| node					| Based on ClassicPatternLayout (http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout)		|				|
+| fileNamePattern				| node					| Based on TimeBasedRollingPolicy (http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy)	|				|
+
+#### stdOutAppender
+
+| Param			        		| Type					| Description																							| Default		|
+| ----------------------------- | ----------------------|-------------------------------------------------------------------------------------------------------|---------------|
+| layoutPattern					| attribute	(String)	| Using firefox browser instance																		| %msg			|
 
 ## Execute your remote-tailer instance and enjoy it :)
 You are ready to execute your remote-tailer.<br/>

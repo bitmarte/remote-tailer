@@ -2,6 +2,7 @@ package org.bitmarte.architecture.utils.remotetailer.services.validator.impl;
 
 import org.bitmarte.architecture.utils.remotetailer.beans.Config;
 import org.bitmarte.architecture.utils.remotetailer.beans.Tailer;
+import org.bitmarte.architecture.utils.remotetailer.beans.outputs.RollingFileAppenderOutput;
 import org.bitmarte.architecture.utils.remotetailer.services.validator.A_Validator;
 import org.bitmarte.architecture.utils.remotetailer.services.validator.exceptions.ValidatorException;
 
@@ -40,11 +41,11 @@ public class ConfigValidator extends A_Validator {
 			}
 
 			// output required
-			if (tailer.getOutput() == null) {
+			if (tailer.getOutput() == null || tailer.getOutput().isEmpty()) {
 				throw new ValidatorException("No output configurated!");
 			} else {
-				if (tailer.getOutput().getFilePath() == null) {
-					throw new ValidatorException("No filePath configurated for output!");
+				if (tailer.getOutput().size() > 1) {
+					throw new ValidatorException("More than one output configured!");
 				}
 			}
 		}
@@ -57,6 +58,12 @@ public class ConfigValidator extends A_Validator {
 			if (tailer.getInput().getPort() == 0) {
 				LOG.warn("No port configured for input, set default to 22");
 				tailer.getInput().setPort(22);
+			}
+			// TODO: more than output could be configured
+			if (tailer.getOutput().get(0) instanceof RollingFileAppenderOutput) {
+				if (((RollingFileAppenderOutput) tailer.getOutput().get(0)).getLayoutPattern() == null) {
+					((RollingFileAppenderOutput) tailer.getOutput().get(0)).setLayoutPattern("%msg");
+				}
 			}
 		}
 	}

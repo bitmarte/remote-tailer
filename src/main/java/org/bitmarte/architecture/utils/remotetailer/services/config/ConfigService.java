@@ -4,8 +4,9 @@ import java.io.File;
 
 import org.bitmarte.architecture.utils.remotetailer.beans.Config;
 import org.bitmarte.architecture.utils.remotetailer.beans.Input;
-import org.bitmarte.architecture.utils.remotetailer.beans.Output;
 import org.bitmarte.architecture.utils.remotetailer.beans.Tailer;
+import org.bitmarte.architecture.utils.remotetailer.beans.outputs.RollingFileAppenderOutput;
+import org.bitmarte.architecture.utils.remotetailer.beans.outputs.StdOutAppenderOutput;
 import org.bitmarte.architecture.utils.remotetailer.services.validator.I_Validator;
 import org.bitmarte.architecture.utils.remotetailer.services.validator.ValidatorFactory;
 import org.slf4j.Logger;
@@ -30,8 +31,9 @@ public class ConfigService {
 
 				xStream.processAnnotations(Config.class);
 				xStream.processAnnotations(Input.class);
-				xStream.processAnnotations(Output.class);
 				xStream.processAnnotations(Tailer.class);
+				xStream.processAnnotations(RollingFileAppenderOutput.class);
+				xStream.processAnnotations(StdOutAppenderOutput.class);
 
 				configuration = (Config) xStream.fromXML(new File(filePath));
 
