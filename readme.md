@@ -57,6 +57,12 @@ This project allow you to tail a fileset remotely.<br/>
 | fileRootPath					| node					| Based on ClassicPatternLayout (http://logback.qos.ch/manual/layouts.html#ClassicPatternLayout)		|				|
 | fileNamePattern				| node					| Based on TimeBasedRollingPolicy (http://logback.qos.ch/manual/appenders.html#TimeBasedRollingPolicy)	|				|
 
+#### stdOutAppender
+
+| Param			        		| Type					| Description																							| Default		|
+| ----------------------------- | ----------------------|-------------------------------------------------------------------------------------------------------|---------------|
+| layoutPattern					| attribute	(String)	| Using firefox browser instance																		| %msg			|
+
 ## Execute your remote-tailer instance and enjoy it :)
 You are ready to execute your remote-tailer.<br/>
 Simple open your console (shell), point to your cloned repo (at pom.xml level) and call the command below:<br/>

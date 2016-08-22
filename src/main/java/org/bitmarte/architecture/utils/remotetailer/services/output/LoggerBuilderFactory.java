@@ -2,7 +2,9 @@ package org.bitmarte.architecture.utils.remotetailer.services.output;
 
 import org.bitmarte.architecture.utils.remotetailer.beans.outputs.A_Output;
 import org.bitmarte.architecture.utils.remotetailer.beans.outputs.RollingFileAppenderOutput;
+import org.bitmarte.architecture.utils.remotetailer.beans.outputs.StdOutAppenderOutput;
 import org.bitmarte.architecture.utils.remotetailer.services.output.impl.RollingFileAppenderBuilder;
+import org.bitmarte.architecture.utils.remotetailer.services.output.impl.StdOutAppenderBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +23,8 @@ public class LoggerBuilderFactory {
 
 		if (output instanceof RollingFileAppenderOutput) {
 			i_LoggerBuilder = new RollingFileAppenderBuilder((RollingFileAppenderOutput) output);
+		} else if (output instanceof StdOutAppenderOutput) {
+			i_LoggerBuilder = new StdOutAppenderBuilder((StdOutAppenderOutput) output);
 		}
 
 		return i_LoggerBuilder;
