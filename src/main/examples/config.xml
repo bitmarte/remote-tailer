@@ -7,9 +7,11 @@
 			<password>password</password>
 			<filePath>/path/to/file.log</filePath>
 		</input>
-		<output type="ROLLING_FILE_APPENDER">
-			<fileRootPathfileRootPath>/tmp/remote-tailer</fileRootPathfileRootPath>
-			<fileNamePattern>mysubpath/%d{yyyy-MM-dd}/file.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+		<output>
+			<rollingFileAppender deleteOnStart="false">
+				<fileRootPath>/tmp/remote-tailer</fileRootPath>
+				<fileNamePattern>mysubpath/%d{yyyy-MM-dd}/file.%d{yyyy-MM-dd_HH}.log</fileNamePattern>
+			</rollingFileAppender>
 		</output>
 	</tailer>
 </config>
