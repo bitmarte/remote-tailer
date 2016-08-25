@@ -13,6 +13,7 @@ import ch.qos.logback.classic.Logger;
 import ch.qos.logback.classic.LoggerContext;
 import ch.qos.logback.classic.encoder.PatternLayoutEncoder;
 import ch.qos.logback.classic.spi.ILoggingEvent;
+import ch.qos.logback.core.rolling.DefaultTimeBasedFileNamingAndTriggeringPolicy;
 import ch.qos.logback.core.rolling.RollingFileAppender;
 import ch.qos.logback.core.rolling.TimeBasedRollingPolicy;
 
@@ -51,22 +52,33 @@ public class RollingFileAppenderBuilder extends A_LoggerBuilder {
 		ple.setPattern(this.output.getLayoutPattern());
 		ple.setContext(lc);
 		ple.start();
+		
+		DefaultTimeBasedFileNamingAndTriggeringPolicy<ILoggingEvent> timeBasedTriggeringPolicy = new DefaultTimeBasedFileNamingAndTriggeringPolicy<ILoggingEvent>();
+	    timeBasedTriggeringPolicy.setContext(lc);
 
+		TimeBasedRollingPolicy<ILoggingEvent> timeBasedRollingPolicy = new TimeBasedRollingPolicy<ILoggingEvent>();
+		timeBasedRollingPolicy
+				.setFileNamePattern(this.output.getFileRootPath() + "/" + this.output.getFileNamePattern());
+		timeBasedRollingPolicy.setMaxHistory(12);
+		timeBasedRollingPolicy.setContext(lc);
+		timeBasedRollingPolicy.setTimeBasedFileNamingAndTriggeringPolicy(timeBasedTriggeringPolicy);
+        timeBasedTriggeringPolicy.setTimeBasedRollingPolicy(timeBasedRollingPolicy);
+		
 		RollingFileAppender<ILoggingEvent> rollingFileAppender = new RollingFileAppender<ILoggingEvent>();
 		rollingFileAppender.setName(TailerRunnable.class.getName());
 		rollingFileAppender.setAppend(true);
 		rollingFileAppender.setEncoder(ple);
 		rollingFileAppender.setContext(lc);
 		rollingFileAppender.setPrudent(true);
-
-		TimeBasedRollingPolicy<?> timeBasedRollingPolicy = new TimeBasedRollingPolicy<Object>();
-		timeBasedRollingPolicy
-				.setFileNamePattern(this.output.getFileRootPath() + "/" + this.output.getFileNamePattern());
-		timeBasedRollingPolicy.setMaxHistory(12);
-		timeBasedRollingPolicy.setParent(rollingFileAppender);
-		timeBasedRollingPolicy.setContext(lc);
+		
+		if(this.output.getFileName() != null && !"".equals(this.output.getFileName())) {
+			rollingFileAppender.setFile(this.output.getFileRootPath() + "/" + this.output.getFileName());
+			rollingFileAppender.setPrudent(false);
+		}
 
 		rollingFileAppender.setRollingPolicy(timeBasedRollingPolicy);
+		timeBasedRollingPolicy.setParent(rollingFileAppender);
+		
 		timeBasedRollingPolicy.start();
 		rollingFileAppender.start();
 
