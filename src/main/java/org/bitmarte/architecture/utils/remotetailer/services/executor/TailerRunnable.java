@@ -39,11 +39,15 @@ public class TailerRunnable implements Runnable {
 			Properties config = new Properties();
 			config.put("StrictHostKeyChecking", "no");
 			session.setConfig(config);
+			session.setServerAliveInterval(60000);
+			session.setServerAliveCountMax(3);
 
 			session.setPassword(this.tailer.getInput().getPassword());
 
 			session.connect();
 
+			LOG.info("Start tailing on " + this.tailer.getInput().getHost() + ":" + this.tailer.getInput().getPort() + this.tailer.getInput().getFilePath());
+			
 			Channel channel = session.openChannel("exec");
 			((ChannelExec) channel).setCommand("tail -f " + this.tailer.getInput().getFilePath());
 
