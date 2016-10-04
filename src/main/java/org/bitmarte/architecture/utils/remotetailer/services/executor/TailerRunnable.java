@@ -49,7 +49,7 @@ public class TailerRunnable implements Runnable {
 			LOG.info("Start tailing on " + this.tailer.getInput().getHost() + ":" + this.tailer.getInput().getPort() + this.tailer.getInput().getFilePath());
 			
 			Channel channel = session.openChannel("exec");
-			((ChannelExec) channel).setCommand("tail -f " + this.tailer.getInput().getFilePath());
+			((ChannelExec) channel).setCommand("tail -F " + this.tailer.getInput().getFilePath());
 
 			channel.setInputStream(null);
 
