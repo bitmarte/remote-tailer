@@ -29,23 +29,29 @@ public class TailerRunnable implements Runnable {
 	}
 
 	public void run() {
+		Session session = null;
+		Channel channel = null;
 		try {
 			Logger log = this.createLogger();
 
 			JSch jSch = new JSch();
 
-			Session session = jSch.getSession(this.tailer.getInput().getUsername(), this.tailer.getInput().getHost(),
+			session = jSch.getSession(this.tailer.getInput().getUsername(), this.tailer.getInput().getHost(),
 					this.tailer.getInput().getPort());
 			Properties config = new Properties();
 			config.put("StrictHostKeyChecking", "no");
 			session.setConfig(config);
+			session.setServerAliveInterval(60000);
+			session.setServerAliveCountMax(3);
 
 			session.setPassword(this.tailer.getInput().getPassword());
 
 			session.connect();
 
-			Channel channel = session.openChannel("exec");
-			((ChannelExec) channel).setCommand("tail -f " + this.tailer.getInput().getFilePath());
+			LOG.info("Start tailing on " + this.tailer.getInput().getHost() + ":" + this.tailer.getInput().getPort() + this.tailer.getInput().getFilePath());
+			
+			channel = session.openChannel("exec");
+			((ChannelExec) channel).setCommand("tail -F " + this.tailer.getInput().getFilePath());
 
 			channel.setInputStream(null);
 
@@ -72,10 +78,11 @@ public class TailerRunnable implements Runnable {
 					LOG.error("[" + Thread.currentThread().getName() + "] Error on thread sleep", e);
 				}
 			}
-			channel.disconnect();
-			session.disconnect();
 		} catch (Exception e) {
 			LOG.error("[" + Thread.currentThread().getName() + "] Generic error", e);
+		} finally {
+			if(channel != null) channel.disconnect();
+			if(session != null) session.disconnect();
 		}
 	}
 
