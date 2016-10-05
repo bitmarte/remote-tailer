@@ -67,7 +67,15 @@ You are ready to execute your remote-tailer.<br/>
 Simple open your console (shell), point to your cloned repo (at pom.xml level) and call the command below:<br/>
 <pre>
 	<code>
-mvn -f pom.xml compile exec:java -Dexec.mainClass=org.bitmarte.architecture.utils.remotetailer.Main -Dexec.args="/var/remote-tailer/my-cfg"
+mvn -f pom.xml compile exec:java -Dexec.mainClass=org.bitmarte.architecture.utils.remotetailer.Main -Dexec.args="/var/remote-tailer/my-cfg/config.xml"
 	</code>
 </pre>
-**Pay attention: specify your base config path as the only require java argument ("/var/remote-tailer/my-cfg" for this tutorial)**
+**Pay attention: specify your base config path as the only require java argument ("/var/remote-tailer/my-cfg/config.xml" for this wiki)**
+
+You can also execute it from java -jar command line:
+<pre>
+	<code>
+java -jar remote-tailer-0.2.1.jar /var/remote-tailer/my-cfg/config.xml
+	</code>
+</pre>
+**Pay attention: specify your remote-tailer jar version ("0.2.1" for this wiki)**
